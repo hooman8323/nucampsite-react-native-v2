@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { ScrollView, Text, FlatList } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { Card, ListItem, Avatar } from "react-native-elements";
 import { PARTNERS } from "../shared/partners";
 
 function Mission() {
   return (
-    <Card title="Our Mission">
+    <Card>
       <Card.Title>Our Mission</Card.Title>
       <Card.Divider />
       <Text style={{ margin: 10 }}>
@@ -23,28 +23,23 @@ function Mission() {
 
 const AboutScreen = () => {
   const [partners, setPartners] = useState(PARTNERS);
-  const renderPartner = ({ item }) => {
-    return (
-      <ListItem>
-        <Avatar source={item.image} rounded />
-        <ListItem.Content>
-          <ListItem.Title>{item.name}</ListItem.Title>
-          <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
-        </ListItem.Content>
-      </ListItem>
-    );
-  };
   return (
     <ScrollView>
       <Mission />
       <Card>
         <Card.Title>Community Partners</Card.Title>
         <Card.Divider />
-        <FlatList
-          data={partners}
-          renderItem={renderPartner}
-          keyExtractor={(partner) => partner.id.toString()}
-        />
+        {partners.map((partner) => {
+          return (
+            <ListItem key={partner.id}>
+              <Avatar source={partner.image} rounded />
+              <ListItem.Content>
+                <ListItem.Title>{partner.name}</ListItem.Title>
+                <ListItem.Subtitle>{partner.description}</ListItem.Subtitle>
+              </ListItem.Content>
+            </ListItem>
+          );
+        })}
       </Card>
     </ScrollView>
   );
